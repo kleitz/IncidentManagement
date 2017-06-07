@@ -1,0 +1,11 @@
+{
+    "name": "root/incedent-management",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Charan",
+            "email": "charan@contourgroupinc.com"
+        }
+    ],
+    "require": {}
+}
