@@ -1,33 +1,32 @@
-@extends('app')
+@extends('base')
+@section('title')
+	Edit Incident
+@stop
 @section('content')
-<div class="container">
-	<center><h2>Edit Incident</h2></center>
-	@if (count($errors) > 0)
-	<div class="alert alert-danger">
-		<strong>Whoops!</strong> There were some problems with your input.<br><br>
-		<ul>
-			@foreach ($errors->all() as $error)
-				<li>{{ $error }}</li>
-			@endforeach
-		</ul>
-	</div>
-	@endif
-<form class="form-horizontal" role="form" method="post" action="{{ url(Request::url()) }}">	
-		<input type="hidden" name="_token" value="{{ csrf_token() }}">
-			
-			<div class="form-group">
-				<label class="col-md-4 control-label">Name</label>
-					<div class="col-md-6">
-						<input type="text" class="form-control" name="name" value="{{ $incident->name }}">
-					</div>
-			</div>
-			<div class="form-group">
-				<label class="col-md-4 control-label">Description</label>
-					<div class="col-md-6">
-						<input type="text" class="form-control" name="description" value="{{ $incident->description }}">
-					</div>
-			</div>
-	<button type="submit" class="btn btn-primary" style="margin-left: 500px;">Submit</button>
-</form>	
+<div class="content-header">
+    <div class="title">
+      <h1>Edit Incident</h1>
+    </div>
+    <a href="{{url('incident')}}">
+    	<button type="button" class="primary">Back</button>
+    </a>
+</div>
+<form role="form" method="POST" action="{{ url(Request::url()) }}">
+	<input type="hidden" name="_token" value="{{ csrf_token() }}">
+		<div>
+			<input type="text" name="name" placeholder="Name" value="{{$incident->name}}" required>
+			<span class="error">
+		      <?php echo $errors->first('name', '* :message'); ?>
+		   </span>
+		</div>
+
+		<div>
+			<textarea name="description" placeholder="Description" required>{{$incident->description}}</textarea>
+			<span class="error">
+	          <?php echo $errors->first('description', '* :message'); ?>
+	    	</span>
+		</div>
+	<button type="submit" class="primary">Save</button>
+</form>
 </div>
 @endsection

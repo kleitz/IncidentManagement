@@ -1,29 +1,57 @@
-@extends('app')
+@extends('base')
+@section('title')
+    Time App - Incident Management
+@endsection
+@section('styleSheets')
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+@endsection
 @section('content')
-<div class="container">
-	<center><h2>Incedent Management</h2></center>
-	<a href="{{url('incident/create')}}"><button class="btn btn-success pull-right">Create Task</button></a>
-	<table class="table table-striped table-bordered table-hover">
-    	 <thead>
-     		<tr class="bg-info">         
-        		 <th>Incident</th>
-	        	 <th>Description</th>
-	         	<th>Actions</th>         
-    		 </tr>
-    	 </thead>
-     <tbody>  
+<div class="content-header">
+	<div class="title">
+      <h1>List Of Tasks</h1>
+    </div>
+    @if(Auth::user()->hasUrlAccess('incident/create'))
+	   <a href="{{url('incident/create')}}"><button type="button" class="primary">Create Incident</button></a>
+     @endif
+</div>
+	<table class="table striped datatable">
+    <thead>
+        <tr>
+             <th>Name</th>
+             <th>Description</th>
+             <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
      @foreach($incidents as $incident)
          <tr>
              <td>{{ $incident->name }}</td>
              <td>{{ $incident->description}}</td>
-             <td>
-            <a href="{{url('incident/view',$incident->id)}}"><button type="button">View</button></a>
-        	<a href="{{url('incident/edit',$incident->id)}}"><button type="button">Edit</button></a>
-       		 <a href="{{url('incident/delete',$incident->id)}}"><button type="button">delete</button></a>
-             </td> 
+             <td class="actions">
+                <a href="{{url('incident/view',$incident->id)}}">
+                    <button type="button" class="dark"><i class="fa fa-eye"></i></button>
+                </a>
+                <a href="{{url('incident/edit',$incident->id)}}">
+                    <button type="button" class="dull"><i class="fa fa-pencil"></i></button>
+                </a>
+                <a href="{{url('incident/delete',$incident->id)}}">
+                    <button type="button" class="dark"><i class="fa fa-trash"></i></button>
+                </a>
+             </td>
          </tr>
-     @endforeach    
+     @endforeach
      </tbody>
  </table>
 </div>
 @endsection
+
+@section('customScripts')
+<script type="text/javascript">
+ $(function(){
+  $('.datatable').dataTable({
+    "paging":false,
+    "info" : false
+  });
+ });
+ </script>
+@stop
