@@ -10,6 +10,10 @@ class IncidentManagementController extends Controller {
 
 	public $incidentmanagement;
 
+	/**
+	 * [__construct]
+	 * @param IncidentManagementInterface $incidentmanagement
+	 */
 	function __construct(IncidentManagementInterface $incidentmanagement)
 	{
 		$this->incidentmanagement = $incidentmanagement;

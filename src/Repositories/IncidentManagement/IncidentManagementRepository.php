@@ -6,7 +6,7 @@ class IncidentManagementRepository implements IncidentManagementInterface
 {
 	/**
 	 * [index description]
-	 * @return [type] [description]
+	 * @return view     [incidentmanagement/index]
 	 */
 	public function index()
 	{
@@ -16,8 +16,8 @@ class IncidentManagementRepository implements IncidentManagementInterface
 
 	/**
 	 * [show description]
-	 * @param  [int] $id [Incident Running ID]
-	 * @return [type]     [description]
+	 * @param  int $id      [runningID inicdents]
+	 * @return view     [incidentmanagement/view]
 	 */
 	public function show($id)
 	{
@@ -27,7 +27,7 @@ class IncidentManagementRepository implements IncidentManagementInterface
 
 	/**
 	 * [create description]
-	 * @return [type] [description]
+	 * @return view     [incidentmanagement/create]
 	 */
 	public function create()
 	{
@@ -36,8 +36,8 @@ class IncidentManagementRepository implements IncidentManagementInterface
 
 	/**
 	 * [store description]
-	 * @param  [type] $request [description]
-	 * @return [type]          [description]
+	 * @param  Request $request
+	 * @return redirect          [incident]
 	 */
 	public function store($request)
 	{
@@ -49,8 +49,8 @@ class IncidentManagementRepository implements IncidentManagementInterface
 
 	/**
 	 * [edit description]
-	 * @param  [type] $id [description]
-	 * @return [type]     [description]
+	 * @param  int $id      [runningID inicdents]
+	 * @return view     [incidentmanagement/index]
 	 */
 	public function edit($id)
 	{
@@ -60,9 +60,9 @@ class IncidentManagementRepository implements IncidentManagementInterface
 
 	/**
 	 * [update description]
-	 * @param  [type] $request [description]
-	 * @param  [type] $id      [description]
-	 * @return [type]          [description]
+	 * @param  Request $request
+	 * @param  int $id      [runningID inicdents]
+	 * @return redirect     	[incident]
 	 */
 	public function update($request,$id)
 	{
@@ -75,8 +75,8 @@ class IncidentManagementRepository implements IncidentManagementInterface
 
 	/**
 	 * [delete description]
-	 * @param  [type] $id [description]
-	 * @return [type]     [description]
+	 * @param  int $id      [runningID inicdents]
+	 * @return redirect     [back]
 	 */
 	public function delete($id)
 	{
