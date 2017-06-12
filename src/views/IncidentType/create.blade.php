@@ -24,6 +24,35 @@
 		          <?php echo $errors->first('description', '* :message'); ?>
 		    </span>
 		</div>
+
+		<div>
+			<h3>Assign Forms to Incident Type</h3>
+			<span class="error">
+						<?php echo $errors->first('form_ids', '* :message'); ?>
+			</span>
+		</div>
+
+		@foreach($forms as $form)
+		<div class="">
+			<label for="">{{$form->name}}</label>
+			<input type="checkbox" name="form_ids[]" value="{{$form->id}}">
+		</div>
+		@endforeach
+
+		<div>
+			<h3>Assign WorkStream to Incident Type</h3>
+			<span class="error">
+						<?php echo $errors->first('workstream_ids', '* :message'); ?>
+			</span>
+		</div>
+
+		@foreach($workstreams as $workstream)
+		<div class="">
+			<label for="">{{$workstream->name}}</label>
+			<input type="checkbox" name="workstream_ids[]" value="{{$workstream->id}}">
+		</div>
+		@endforeach
+
 	<button type="submit" class="primary">Create</button>
 	</form>
 </div>

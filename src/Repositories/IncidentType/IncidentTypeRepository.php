@@ -2,6 +2,8 @@
 namespace IncidentManagement\Repositories\IncidentType;
 use IncidentManagement\Models\IncidentType;
 use Auth;
+use FormBuilder\Models\Form;
+use WorkStream\Models\Workstream;
 class IncidentTypeRepository implements IncidentTypeInterface
 {
 	/**
@@ -31,7 +33,11 @@ class IncidentTypeRepository implements IncidentTypeInterface
 	 */
 	public function create()
 	{
-		return view('vendor.IncidentManagement.IncidentType.create');
+		$forms = Form::all();
+		$workstreams = Workstream::all();
+		return view('vendor.IncidentManagement.IncidentType.create')
+								->with('forms',$forms)
+								->with('workstreams',$workstreams);
 	}
 
 	/**
@@ -42,8 +48,9 @@ class IncidentTypeRepository implements IncidentTypeInterface
 	public function store($request)
 	{
 		$input = $request->all();
-		$input['created_by'] = Auth::user()->id;
 		$incident_type = IncidentType::create($input);
+		$incident_type->forms()->sync($input['form_ids']);
+		$incident_type->workstreams()->sync($input['workstream_ids']);
 		return redirect('incident/type');
 	}
 
@@ -55,7 +62,12 @@ class IncidentTypeRepository implements IncidentTypeInterface
 	public function edit($id)
 	{
 		$incident_type = IncidentType::findOrFail($id);
-		return view('vendor.IncidentManagement.IncidentType.edit')->with('incident_type',$incident_type);
+		$forms = Form::all();
+		$workstreams = Workstream::all();
+		return view('vendor.IncidentManagement.IncidentType.edit')
+								->with('incident_type',$incident_type)
+								->with('forms',$forms)
+								->with('workstreams',$workstreams);
 	}
 
 	/**
@@ -66,10 +78,13 @@ class IncidentTypeRepository implements IncidentTypeInterface
 	 */
 	public function update($request,$id)
 	{
+		$input = $request->all();
 		$incident_type = IncidentType::findOrFail($id);
 		$incident_type->name = $request->name;
 		$incident_type->description = $request->description;
 		$incident_type->save();
+		$incident_type->forms()->sync($input['form_ids']);
+		$incident_type->workstreams()->sync($input['workstream_ids']);
 		return redirect('incident/type');
 	}
 

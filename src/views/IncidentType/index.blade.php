@@ -19,6 +19,8 @@
         <tr>
              <th>Name</th>
              <th>Description</th>
+             <th>Forms</th>
+             <th>WorkStreams</th>
              <th>Actions</th>
         </tr>
     </thead>
@@ -27,14 +29,28 @@
          <tr>
              <td>{{ $incident_type->name }}</td>
              <td>{{ $incident_type->description}}</td>
+             <td>
+               <ul>
+               @foreach($incident_type->forms as $form)
+                 <li>{{$form->name}}</li>
+               @endforeach
+               </ul>
+             </td>
+             <td>
+               <ul>
+               @foreach($incident_type->workstreams as $workstream)
+                 <li>{{$workstream->name}}</li>
+               @endforeach
+               </ul>
+             </td>
              <td class="actions">
-                <a href="{{url('incident/type/view',$incident->id)}}">
+                <a href="{{url('incident/type/view',$incident_type->id)}}">
                     <button type="button" class="dark"><i class="fa fa-eye"></i></button>
                 </a>
-                <a href="{{url('incident/type/edit',$incident->id)}}">
+                <a href="{{url('incident/type/edit',$incident_type->id)}}">
                     <button type="button" class="dull"><i class="fa fa-pencil"></i></button>
                 </a>
-                <a href="{{url('incident/type/delete',$incident->id)}}">
+                <a href="{{url('incident/type/delete',$incident_type->id)}}">
                     <button type="button" class="dark"><i class="fa fa-trash"></i></button>
                 </a>
              </td>
