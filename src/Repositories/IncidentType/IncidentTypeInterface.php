@@ -1,7 +1,7 @@
 <?php
-namespace IncidentManagement\Repositories\IncidentManagement;
+namespace IncidentManagement\Repositories\IncidentType;
 
-interface IncidentManagementInterface
+interface IncidentTypeInterface
 {
 	public function index();
 	public function show($id);

@@ -1,8 +1,8 @@
 <?php
-namespace IncidentManagement\Repositories\IncidentManagement;
-use IncidentManagement\Models\Incident;
+namespace IncidentManagement\Repositories\IncidentType;
+use IncidentManagement\Models\IncidentType;
 use Auth;
-class IncidentManagementRepository implements IncidentManagementInterface
+class IncidentTypeRepository implements IncidentTypeInterface
 {
 	/**
 	 * [index description]
@@ -10,8 +10,8 @@ class IncidentManagementRepository implements IncidentManagementInterface
 	 */
 	public function index()
 	{
-		$incidents = Incident::all();
-		return view('vendor.IncidentManagement.index')->with('incidents',$incidents);
+		$incident_types = IncidentType::all();
+		return view('vendor.IncidentManagement.IncidentType.index')->with('incident_types',$incident_types);
 	}
 
 	/**
@@ -21,8 +21,8 @@ class IncidentManagementRepository implements IncidentManagementInterface
 	 */
 	public function show($id)
 	{
-		$incident = Incedent::findOrFail($id);
-		return view('vendor.IncedentManagement.view')->with('incident',$incident);
+		$incident_type = IncidentType::findOrFail($id);
+		return view('vendor.IncidentManagement.IncidentType.view')->with('incident_type',$incident_type);
 	}
 
 	/**
@@ -31,7 +31,7 @@ class IncidentManagementRepository implements IncidentManagementInterface
 	 */
 	public function create()
 	{
-		return view('vendor.IncidentManagement.create');
+		return view('vendor.IncidentManagement.IncidentType.create');
 	}
 
 	/**
@@ -43,8 +43,8 @@ class IncidentManagementRepository implements IncidentManagementInterface
 	{
 		$input = $request->all();
 		$input['created_by'] = Auth::user()->id;
-		$incident = Incident::create($input);
-		return redirect('incident');
+		$incident_type = IncidentType::create($input);
+		return redirect('incident/type');
 	}
 
 	/**
@@ -54,8 +54,8 @@ class IncidentManagementRepository implements IncidentManagementInterface
 	 */
 	public function edit($id)
 	{
-		$incident = Incident::findOrFail($id);
-		return view('vendor.IncidentManagement.edit')->with('incident',$incident);
+		$incident_type = IncidentType::findOrFail($id);
+		return view('vendor.IncidentManagement.IncidentType.edit')->with('incident_type',$incident_type);
 	}
 
 	/**
@@ -66,11 +66,11 @@ class IncidentManagementRepository implements IncidentManagementInterface
 	 */
 	public function update($request,$id)
 	{
-		$incident = Incident::findOrFail($id);
-		$incident->name = $request->name;
-		$incident->description = $request->description;
-		$incident->save();
-		return redirect('incident');
+		$incident_type = IncidentType::findOrFail($id);
+		$incident_type->name = $request->name;
+		$incident_type->description = $request->description;
+		$incident_type->save();
+		return redirect('incident/type');
 	}
 
 	/**
@@ -80,8 +80,8 @@ class IncidentManagementRepository implements IncidentManagementInterface
 	 */
 	public function delete($id)
 	{
-		$incident = Incident::findOrFail($id);
-		$incident->delete();
+		$incident_type = IncidentType::findOrFail($id);
+		$incident_type->delete();
 		return redirect()->back();
 	}
 }

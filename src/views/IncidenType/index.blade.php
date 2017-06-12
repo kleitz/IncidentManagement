@@ -8,10 +8,10 @@
 @section('content')
 <div class="content-header">
 	<div class="title">
-      <h1>List Of Tasks</h1>
+      <h1>Incident Types</h1>
     </div>
     @if(Auth::user()->hasUrlAccess('incident/create'))
-	   <a href="{{url('incident/create')}}"><button type="button" class="primary">Create Incident</button></a>
+	   <a href="{{url('incident/type/create')}}"><button type="button" class="primary">Create Incident</button></a>
      @endif
 </div>
 	<table class="table striped datatable">
@@ -23,18 +23,18 @@
         </tr>
     </thead>
     <tbody>
-     @foreach($incidents as $incident)
+     @foreach($incident_types as $incident_type)
          <tr>
-             <td>{{ $incident->name }}</td>
-             <td>{{ $incident->description}}</td>
+             <td>{{ $incident_type->name }}</td>
+             <td>{{ $incident_type->description}}</td>
              <td class="actions">
-                <a href="{{url('incident/view',$incident->id)}}">
+                <a href="{{url('incident/type/view',$incident->id)}}">
                     <button type="button" class="dark"><i class="fa fa-eye"></i></button>
                 </a>
-                <a href="{{url('incident/edit',$incident->id)}}">
+                <a href="{{url('incident/type/edit',$incident->id)}}">
                     <button type="button" class="dull"><i class="fa fa-pencil"></i></button>
                 </a>
-                <a href="{{url('incident/delete',$incident->id)}}">
+                <a href="{{url('incident/type/delete',$incident->id)}}">
                     <button type="button" class="dark"><i class="fa fa-trash"></i></button>
                 </a>
              </td>

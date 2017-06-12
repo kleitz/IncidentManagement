@@ -27,8 +27,8 @@ class IncidentManagementServiceProvider extends ServiceProvider {
 		include dirname(__DIR__).'/routes.php';
 		$this->app->bind
 		(
-			'IncidentManagement\Repositories\IncidentManagement\IncidentManagementInterface',
-			'IncidentManagement\Repositories\IncidentManagement\IncidentManagementRepository'
+			'IncidentManagement\Repositories\IncidentType\IncidentTypeInterface',
+			'IncidentManagement\Repositories\IncidentType\IncidentTypeRepository'
 		);
 	}
 

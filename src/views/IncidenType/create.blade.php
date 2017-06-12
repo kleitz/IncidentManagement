@@ -1,11 +1,11 @@
 @extends('base')
 @section('title')
-	Create Incidents
+	Create Incident Type
 @stop
 @section('content')
 <div class="content-header">
     <div class="title">
-      <h1>Create Incident</h1>
+      <h1>Create Incident Type</h1>
     </div>
     <a href="{{url('incident')}}"><button type="button" class="primary">Back</button></a>
 </div>

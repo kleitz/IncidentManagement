@@ -1,14 +1,10 @@
 <?php
-Route::get('ok',function(){
-	return "okok success";
-});
-
-Route::group(['prefix'=> 'incident'],function()
-	{
- Route::get('','IncidentManagement\Controllers\IncidentManagementController@index');
- Route::get('create','IncidentManagement\Controllers\IncidentManagementController@create');
- Route::post('create','IncidentManagement\Controllers\IncidentManagementController@store');
- Route::get('/edit/{id}','IncidentManagement\Controllers\IncidentManagementController@edit');
- Route::post('/edit/{id}','IncidentManagement\Controllers\IncidentManagementController@update');
- Route::get('/delete/{id}','IncidentManagement\Controllers\IncidentManagementController@destroy');
+Route::group(['prefix'=> 'incident/type'],function()
+{
+ Route::get('','IncidentManagement\Controllers\IncidentTypeController@index');
+ Route::get('create','IncidentManagement\Controllers\IncidentTypeController@create');
+ Route::post('create','IncidentManagement\Controllers\IncidentTypeController@store');
+ Route::get('/edit/{id}','IncidentManagement\Controllers\IncidentTypeController@edit');
+ Route::post('/edit/{id}','IncidentManagement\Controllers\IncidentTypeController@update');
+ Route::get('/delete/{id}','IncidentManagement\Controllers\IncidentTypeController@destroy');
 });

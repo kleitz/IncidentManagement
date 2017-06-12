@@ -1,9 +1,9 @@
-<?php 
+<?php
 namespace IncidentManagement\Requests;
 
 use App\Http\Requests\Request;
 
-class StoreIncidentRequest extends Request {
+class EditIncidentTypeRequest extends Request {
 
 	/**
 	 * Determine if the user is authorized to make this request.
@@ -24,8 +24,16 @@ class StoreIncidentRequest extends Request {
 	{
 		return [
 			'name' => 'required|max:255',
-			'description' => 'required'
+			'description' => 'required',
+			'form_ids' => 'required|array'
 		];
+	}
+
+	public function messages()
+	{
+		return [
+			'form_ids.required' => 'Please Select Forms.',
+		]
 	}
 
 }
