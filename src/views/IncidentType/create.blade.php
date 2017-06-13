@@ -7,7 +7,7 @@
     <div class="title">
       <h1>Create Incident Type</h1>
     </div>
-    <a href="{{url('incident')}}"><button type="button" class="primary">Back</button></a>
+    <a href="{{url('incident/type')}}"><button type="button" class="primary">Back</button></a>
 </div>
 <form role="form" method="POST" action="{{ url(Request::url()) }}">
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">

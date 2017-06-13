@@ -4,19 +4,19 @@ namespace IncidentManagement\Controllers;
 use App\Http\Controllers\Controller;
 use IncidentManagement\Requests;
 use Illuminate\Http\Request;
-use IncidentManagement\Repositories\IncidentType\IncidentTypeInterface;
+use IncidentManagement\Repositories\Incident\IncidentInterface;
 
-class IncidentTypeController extends Controller {
+class IncidentController extends Controller {
 
-	public $incident_type;
+	public $incident;
 
 	/**
 	 * [__construct]
-	 * @param IncidentTypeInterface $incident_type
+	 * @param IncidentInterface $incident
 	 */
-	function __construct(IncidentTypeInterface $incident_type)
+	function __construct(IncidentInterface $incident)
 	{
-		$this->incident_type = $incident_type;
+		$this->incident = $incident;
 	}
 	/**
 	 * Display a listing of the resource.
@@ -25,7 +25,7 @@ class IncidentTypeController extends Controller {
 	 */
 	public function index()
 	{
-		return $this->incident_type->index();
+		return $this->incident->index();
 	}
 
 	/**
@@ -35,7 +35,7 @@ class IncidentTypeController extends Controller {
 	 */
 	public function create()
 	{
-		return $this->incident_type->create();
+		return $this->incident->create();
 	}
 
 	/**
@@ -43,9 +43,9 @@ class IncidentTypeController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store(Requests\StoreIncidentTypeRequest $request)
+	public function store(Requests\StoreIncidentRequest $request)
 	{
-		return $this->incident_type->store($request);
+		return $this->incident->store($request);
 	}
 
 	/**
@@ -56,7 +56,7 @@ class IncidentTypeController extends Controller {
 	 */
 	public function show($id)
 	{
-		return $this->incedent_type->show($id);
+		return $this->incedent->show($id);
 	}
 
 	/**
@@ -67,7 +67,7 @@ class IncidentTypeController extends Controller {
 	 */
 	public function edit($id)
 	{
-		return $this->incident_type->edit($id);
+		return $this->incident->edit($id);
 	}
 
 	/**
@@ -76,9 +76,9 @@ class IncidentTypeController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update(Requests\EditIncidentTypeRequest $request,$id)
+	public function update(Requests\EditIncidentRequest $request,$id)
 	{
-		return $this->incident_type->update($request,$id);
+		return $this->incident->update($request,$id);
 	}
 
 	/**
@@ -89,7 +89,7 @@ class IncidentTypeController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		return $this->incident_type->delete($id);
+		return $this->incident->delete($id);
 	}
 
 }
