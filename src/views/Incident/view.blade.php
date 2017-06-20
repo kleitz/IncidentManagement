@@ -1,11 +1,11 @@
 @extends('base')
 @section('title')
-	View Incident Type
+	View Incident
 @stop
 @section('content')
 <div class="content-header">
     <div class="title">
-      <h1>View Incident Type</h1>
+      <h1>View Incident</h1>
     </div>
     <a href="{{url('incident/type')}}">
     	<button type="button" class="primary">Back</button>
@@ -14,11 +14,11 @@
 <table class="striped two-col bordered">
 	<tr>
 		<td>Name : </td>
-		<td>{{$incident_type->name}}</td>
+		<td>{{$incident->name}}</td>
 	</tr>
 	<tr>
 		<td>Description:</td>
-		<td>{{$incident_type->description}}</td>
-	</tr>
+		<td>{{$incident->description}}</td>
+	</tr>	
 </table>
 @endsection

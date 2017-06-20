@@ -5,8 +5,15 @@ use IncidentManagement\Models\IncidentType;
 use Auth;
 use FormBuilder\Models\Form;
 use WorkStream\Models\Workstream;
+use FormBuilder\Repositories\FormAnswer\FormAnswerInterface;
+
 class IncidentRepository implements IncidentInterface
 {
+	public function __construct(FormAnswerInterface $form_answer)
+	{
+		$this->form_answer = $form_answer;
+	}
+
 	/**
 	 * [index description]
 	 * @return view     [incidentmanagement/index]
@@ -36,7 +43,7 @@ class IncidentRepository implements IncidentInterface
 	{
 		$incident_types = Auth::user()->incidentTypes();
 		foreach ($incident_types as $incident_type) {
-			 $incident_type->forms;
+			 $incident_type->form;
 		}
 		return view('vendor.IncidentManagement.Incident.create')
 								->with('incident_types',$incident_types)
@@ -51,17 +58,11 @@ class IncidentRepository implements IncidentInterface
 	public function store($request)
 	{
 		$input = $request->all();
-		$input['created_by'] = Auth::user()->id;
-		$incident = Incident::create($input);
-		if ($request->ajax()) {
-			$incident_type = $incident->incidentType;
-			$forms = $incident_type->forms;
-			$out_array  = [
-				'incident' => $incident,
-				'forms'	=> $forms,
-			];
-			return $out_array;
-		}
+		$input['created_by'] 	= Auth::user()->id;
+		$incident_type 				= IncidentType::findOrFail($input['incident_type_id']);
+		$incident_form_answer = $this->form_answer->storeFormAnswer($incident_type->form,json_decode($input['form_answer']));
+		$input['form_answer_id'] = $incident_form_answer->id;
+		Incident::create($input);
 		return redirect('incident');
 	}
 
@@ -72,31 +73,29 @@ class IncidentRepository implements IncidentInterface
 	 */
 	public function edit($id)
 	{
-		$incident_type = Incident::findOrFail($id);
-		$forms = Form::all();
-		$workstreams = Workstream::all();
+		$incident  = Incident::findOrFail($id);
+		if($incident->created_by != Auth::user()->id){
+			return redirect()->back();
+		}
 		return view('vendor.IncidentManagement.Incident.edit')
-								->with('incident_type',$incident_type)
-								->with('forms',$forms)
-								->with('workstreams',$workstreams);
+								->with('incident',$incident);
 	}
 
 	/**
 	 * [update description]
 	 * @param  Request $request
-	 * @param  int $id      [runningID inicdents]
+	 * @param  int $id      [runningID incidents]
 	 * @return redirect     	[incident]
 	 */
 	public function update($request,$id)
 	{
 		$input = $request->all();
-		$incident_type = Incident::findOrFail($id);
-		$incident_type->name = $request->name;
-		$incident_type->description = $request->description;
-		$incident_type->save();
-		$incident_type->forms()->sync($input['form_ids']);
-		$incident_type->workstreams()->sync($input['workstream_ids']);
-		return redirect('incident/type');
+		$incident = Incident::findOrFail($id);
+		$incident->name = $input['name'];
+		$incident->description = $input['description'];
+		$incident->save();
+		$this->form_answer->updateFormAnswer($incident->formAnswer,json_decode($input['form_answer']));
+		return redirect('incident');
 	}
 
 	/**

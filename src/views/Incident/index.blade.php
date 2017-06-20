@@ -8,10 +8,10 @@
 @section('content')
 <div class="content-header">
 	<div class="title">
-      <h1>Incident Types</h1>
+      <h1>Incident</h1>
     </div>
     @if(Auth::user()->hasUrlAccess('incident/create'))
-	   <a href="{{url('incident/type/create')}}"><button type="button" class="primary">Create Incident</button></a>
+	   <a href="{{url('incident/create')}}"><button type="button" class="primary">Create Incident</button></a>
      @endif
 </div>
 	<table class="table striped datatable">
@@ -19,38 +19,24 @@
         <tr>
              <th>Name</th>
              <th>Description</th>
-             <th>Forms</th>
-             <th>WorkStreams</th>
+             <th>Incident Type</th>
              <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-     @foreach($incident_types as $incident_type)
+     @foreach($incidents as $incident)
          <tr>
-             <td>{{ $incident_type->name }}</td>
-             <td>{{ $incident_type->description}}</td>
-             <td>
-               <ul>
-               @foreach($incident_type->forms as $form)
-                 <li>{{$form->name}}</li>
-               @endforeach
-               </ul>
-             </td>
-             <td>
-               <ul>
-               @foreach($incident_type->workstreams as $workstream)
-                 <li>{{$workstream->name}}</li>
-               @endforeach
-               </ul>
-             </td>
+             <td>{{ $incident->name }}</td>
+             <td>{{ $incident->description}}</td>
+             <td>{{ $incident->incidentType->name}}</td>
              <td class="actions">
-                <a href="{{url('incident/type/view',$incident_type->id)}}">
+                <a href="{{url('incident/view',$incident->id)}}">
                     <button type="button" class="dark"><i class="fa fa-eye"></i></button>
                 </a>
-                <a href="{{url('incident/type/edit',$incident_type->id)}}">
+                <a href="{{url('incident/edit',$incident->id)}}">
                     <button type="button" class="dull"><i class="fa fa-pencil"></i></button>
                 </a>
-                <a href="{{url('incident/type/delete',$incident_type->id)}}">
+                <a href="{{url('incident/delete',$incident->id)}}">
                     <button type="button" class="dark"><i class="fa fa-trash"></i></button>
                 </a>
              </td>

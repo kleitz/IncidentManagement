@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Incident extends Model {
 	use SoftDeletes;
-	protected $fillable = ['name','description','incident_type_id','created_by','updated_by'];
+	protected $fillable = ['name','description','incident_type_id','form_answer_id','created_by','updated_by'];
 
-	public function incidentTypes()
+	public function incidentType()
 	{
 		return $this->belongsTo('IncidentManagement\Models\IncidentType');
 	}
@@ -16,6 +16,11 @@ class Incident extends Model {
 	public function createdBy()
 	{
 		return $this->belongsTo('App\User','created_by');
+	}
+
+	public function formAnswer()
+	{
+		return $this->belongsTo('FormBuilder\Models\FormAnswer');
 	}
 
 	public function updatedBy()
