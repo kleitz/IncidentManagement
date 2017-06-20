@@ -25,19 +25,14 @@
 		    </span>
 		</div>
 
-		<div>
-			<h3>Assign Forms to Incident Type</h3>
-			<span class="error">
-						<?php echo $errors->first('form_ids', '* :message'); ?>
-			</span>
-		</div>
-
-		@foreach($forms as $form)
 		<div class="">
-			<label for="">{{$form->name}}</label>
-			<input type="checkbox" name="form_ids[]" value="{{$form->id}}">
+			<select  name="form_id">
+				<option value="">--Select Form--</option>
+				@foreach($forms as $form)
+				<option value="{{$form->id}}">{{$form->name}}</option>
+				@endforeach
+			</select>
 		</div>
-		@endforeach
 
 		<div>
 			<h3>Assign WorkStream to Incident Type</h3>

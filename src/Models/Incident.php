@@ -10,7 +10,7 @@ class Incident extends Model {
 
 	public function incidentTypes()
 	{
-		return $this->hasMany('IncidentManagement\Models\IncidentType');
+		return $this->belongsTo('IncidentManagement\Models\IncidentType');
 	}
 
 	public function createdBy()

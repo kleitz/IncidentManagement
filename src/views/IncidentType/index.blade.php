@@ -30,11 +30,7 @@
              <td>{{ $incident_type->name }}</td>
              <td>{{ $incident_type->description}}</td>
              <td>
-               <ul>
-               @foreach($incident_type->forms as $form)
-                 <li>{{$form->name}}</li>
-               @endforeach
-               </ul>
+               {{$incident_type->form->name}}
              </td>
              <td>
                <ul>

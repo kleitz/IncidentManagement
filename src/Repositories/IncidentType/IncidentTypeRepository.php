@@ -48,8 +48,7 @@ class IncidentTypeRepository implements IncidentTypeInterface
 	public function store($request)
 	{
 		$input = $request->all();
-		$incident_type = IncidentType::create($input);
-		$incident_type->forms()->sync($input['form_ids']);
+		$incident_type = IncidentType::create($input);		
 		$incident_type->workstreams()->sync($input['workstream_ids']);
 		return redirect('incident/type');
 	}

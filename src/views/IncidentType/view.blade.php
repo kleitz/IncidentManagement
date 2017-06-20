@@ -20,5 +20,20 @@
 		<td>Description:</td>
 		<td>{{$incident_type->description}}</td>
 	</tr>
+	<tr>
+		<td>Form:</td>
+		<td>{{$incident_type->form->name}}</td>
+	</tr>
+	<tr>
+		<td>Workstreams:</td>
+		<td>
+			<ul>
+				@foreach($incident_type->workstreams as $workstream)
+				<li>$workstream->name</li>
+				@endforeach
+			</ul>
+		</td>
+	</tr>
+
 </table>
 @endsection

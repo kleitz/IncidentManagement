@@ -27,23 +27,17 @@
 	    	</span>
 		</div>
 
-		<div>
-			<h3>Assign Forms to Incident Type</h3>
-			<span class="error">
-						<?php echo $errors->first('form_ids', '* :message'); ?>
-			</span>
-		</div>
-
-		@foreach($forms as $form)
 		<div class="">
-			<label for="">{{$form->name}}</label>
-			<input type="checkbox" name="form_ids[]" value="{{$form->id}}"
-			@if($incident_type->forms()->get()->contains($form->id))
-			checked
-			@endif
-			>
+			<select class="" name="form_id">
+				@foreach($froms as $form)
+				<option value="{{$form->id}}"
+				@if($form->id === $incident_type->form_id)
+				selected
+				@endid
+				>{{$form->name}}</option>
+				@endforeach
+			</select>
 		</div>
-		@endforeach
 
 		<div>
 			<h3>Assign WorkStream to Incident Type</h3>

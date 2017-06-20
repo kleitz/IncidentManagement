@@ -8,16 +8,16 @@ class IncidentType extends Model {
 
 	use SoftDeletes;
 
-	protected $fillable = ['name','description'];
+	protected $fillable = ['name','description','form_id'];
 
 	public function workstreams()
 	{
 		return $this->belongsToMany('WorkStream\Models\Workstream','incident_type_workstreams','incident_type_id','workstream_id');
 	}
 
-	public function forms()
+	public function form()
 	{
-		return $this->belongsToMany('FormBuilder\Models\Form','incident_type_forms');
+		return $this->belongsTo('FormBuilder\Models\Form');
 	}
 
 }

@@ -34,9 +34,13 @@ class IncidentRepository implements IncidentInterface
 	 */
 	public function create()
 	{
-		$incident_types = IncidentType::all();
+		$incident_types = Auth::user()->incidentTypes();
+		foreach ($incident_types as $incident_type) {
+			 $incident_type->forms;
+		}
 		return view('vendor.IncidentManagement.Incident.create')
-								->with('incident_types',$incident_types);
+								->with('incident_types',$incident_types)
+								->with('incident_type_json',$incident_types->toJson());
 	}
 
 	/**
@@ -47,10 +51,18 @@ class IncidentRepository implements IncidentInterface
 	public function store($request)
 	{
 		$input = $request->all();
-		$incident_type = Incident::create($input);
-		$incident_type->forms()->sync($input['form_ids']);
-		$incident_type->workstreams()->sync($input['workstream_ids']);
-		return redirect('incident/type');
+		$input['created_by'] = Auth::user()->id;
+		$incident = Incident::create($input);
+		if ($request->ajax()) {
+			$incident_type = $incident->incidentType;
+			$forms = $incident_type->forms;
+			$out_array  = [
+				'incident' => $incident,
+				'forms'	=> $forms,
+			];
+			return $out_array;
+		}
+		return redirect('incident');
 	}
 
 	/**

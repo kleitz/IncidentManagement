@@ -25,7 +25,7 @@ class StoreIncidentTypeRequest extends Request {
 		return [
 			'name' => 'required|max:255',
 			'description' => 'required',
-			'form_ids' => 'required|array',
+			'form_id' => 'required|exists:forms,id',
 			'workstream_ids' => 'required|array',
 		];
 	}
@@ -33,7 +33,8 @@ class StoreIncidentTypeRequest extends Request {
 	public function messages()
 	{
 		return [
-			'form_ids.required' => 'Please Select Forms.',
+			'form_id.required' => 'Please Select Form.',
+			'form_id.exists' => 'Please Select Form In the List.',
 			'workstream_ids.required' => 'Please Select Workstreams.',
 		];
 	}
