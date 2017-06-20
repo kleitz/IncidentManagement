@@ -29,7 +29,7 @@
 		<td>
 			<ul>
 				@foreach($incident_type->workstreams as $workstream)
-				<li>$workstream->name</li>
+				<li>{{$workstream->name}}</li>
 				@endforeach
 			</ul>
 		</td>

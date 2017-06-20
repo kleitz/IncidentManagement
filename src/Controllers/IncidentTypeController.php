@@ -56,7 +56,7 @@ class IncidentTypeController extends Controller {
 	 */
 	public function show($id)
 	{
-		return $this->incedent_type->show($id);
+		return $this->incident_type->show($id);
 	}
 
 	/**
