@@ -29,11 +29,11 @@
 
 		<div class="">
 			<select class="" name="form_id">
-				@foreach($froms as $form)
+				@foreach($forms as $form)
 				<option value="{{$form->id}}"
 				@if($form->id === $incident_type->form_id)
 				selected
-				@endid
+				@endif
 				>{{$form->name}}</option>
 				@endforeach
 			</select>
