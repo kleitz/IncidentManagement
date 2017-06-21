@@ -35,17 +35,28 @@
 		</div>
 
 		<div>
-			<h3>Assign WorkStream to Incident Type</h3>
+			<h3>Assign WorkStream to Incident Type :</h3>
 			<span class="error">
 						<?php echo $errors->first('workstream_ids', '* :message'); ?>
 			</span>
 		</div>
 
 		@foreach($workstreams as $workstream)
-		<div class="">
+		<!-- <div class="">
 			<label for="">{{$workstream->name}}</label>
 			<input type="checkbox" name="workstream_ids[]" value="{{$workstream->id}}">
-		</div>
+		</div> -->
+		<table class="striped datatable">
+			<tbody>
+			<tr>
+				<td><label class="checkbox">{{$workstream->name}}
+						<input name="" data-field="input" data-type="checkbox" type="checkbox" onclick="toggleCheckbox(this)" style="position: absolute; right: 0; top: 0;">
+						<i class="fa fa-check" style="position: absolute; right: 6px; top: 0;"></i>
+						<!-- <span>Checkbox</span> -->
+				</label></td>
+			</tr>
+			</tbody>
+		</table>
 		@endforeach
 
 	<button type="submit" class="primary">Create</button>
