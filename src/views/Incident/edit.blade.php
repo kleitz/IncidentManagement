@@ -56,8 +56,7 @@
 			var v = elem.getAttribute('data-user-id');
 
 				var input = $(elem).find('input')[0];
-						input.setAttribute('checked',true);
-						input.value = v;
+						input.setAttribute('checked',true);						
 
 				var span = $(elem).find('span');
 						$(span).removeClass('off').addClass('on');

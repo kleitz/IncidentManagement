@@ -55,25 +55,64 @@
 			@endif
 			>
 		</div> -->
-		<table class="striped datatable">
-			<tbody>
-			<tr>
-				<td><label class="checkbox">{{$workstream->name}}
-						<!-- <input name="" data-field="input" data-type="checkbox" type="checkbox" onclick="toggleCheckbox(this)" style="position: absolute; right: 0; top: 0;"> -->
-						<input type="checkbox" name="workstream_ids[]" value="{{$workstream->id}}" onclick="toggleCheckbox(this)" style="position: absolute; right: 0; top: 0;" 
-						@if($incident_type->workstreams()->get()->contains($workstream->id))
-						checked
-						@endif
-						>
-						<i class="fa fa-check" style="position: absolute; right: 6px; top: 0;"></i>
-						<!-- <span>Checkbox</span> -->
-				</label></td>
-			</tr>
-			</tbody>
-		</table>
+		<div class="toggles">
+			<div class="item">
+				<label>{{$workstream->name}}</label>
+				@if($incident_type->workstreams()->get()->contains($workstream->id))
+				<div class="toggle-bar active" onclick="toggleButton(this)">
+					<input type="checkbox" name="workstream_ids[]" value="{{$workstream->id}}" checked>
+					<span class="on">ON</span>
+				</div>
+				@else
+				<div class="toggle-bar" onclick="toggleButton(this)">
+					<input type="checkbox" name="workstream_ids[]" value="{{$workstream->id}}">
+					<span class="off">Off</span>
+				</div>
+				@endif
+			</div>
+		</div>
 		@endforeach
 
 	<button type="submit" class="primary">Save</button>
 </form>
 </div>
 @endsection
+
+@section('customScripts')
+<script type="text/javascript">
+ $(function(){
+  $('.datatable').dataTable({
+    "paging":false,
+    "info" : false
+  });
+ });
+ </script>
+ <script type="text/javascript">
+   function toggleButton(elem)
+   {
+     if($(elem).hasClass('active'))
+     {
+      var input = $(elem).find('input')[0];
+          $(input).removeAttr('checked');
+          $(input).removeAttr('value');
+           var span = $(elem).find('span');
+           $(span).removeClass('on').addClass('off');
+           $(span).text('Off');
+      $(elem).removeClass('active');
+     }
+     else
+     {
+       var v = elem.getAttribute('data-user-id');
+
+         var input = $(elem).find('input')[0];
+             input.setAttribute('checked',true);
+             input.value = v;
+
+         var span = $(elem).find('span');
+             $(span).removeClass('off').addClass('on');
+             $(span).text('On');
+         $(elem).addClass('active');
+     }
+   }
+ </script>
+@stop
