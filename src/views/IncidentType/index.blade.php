@@ -11,7 +11,7 @@
       <h1>Incident Types</h1>
     </div>
     @if(Auth::user()->hasUrlAccess('incident/create'))
-	   <a href="{{url('incident/type/create')}}"><button type="button" class="primary">Create Incident</button></a>
+	   <a href="{{url('incident/type/create')}}"><button type="button" class="primary">Create Incident Type</button></a>
      @endif
 </div>
 	<table class="table striped datatable">

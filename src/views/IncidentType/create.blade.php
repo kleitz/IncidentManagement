@@ -19,43 +19,41 @@
 		</div>
 
 		<div>
-			<input type="textarea" placeholder="Description" name="description" value="{{old('textarea')}}" required style="height: 200px">
+			<!-- <input type="textarea" placeholder="Description" name="description" value="{{old('textarea')}}" required style="height: 200px"> -->
+			<textarea name="description" placeholder="Description" value="{{old('textarea')}}"></textarea>
 		    <span class="error">
 		          <?php echo $errors->first('description', '* :message'); ?>
 		    </span>
 		</div>
 
-		<div class="">
-			<select  name="form_id">
-				<option value="">--Select Form--</option>
+		<div class="select">
+			<select  name="form_id" class="cstm-select">
+				<option value="">Select Form</option>
 				@foreach($forms as $form)
 				<option value="{{$form->id}}">{{$form->name}}</option>
 				@endforeach
 			</select>
+			<i class="fa fa-chevron-down"></i>
 		</div>
 
 		<div>
-			<h3>Assign WorkStream to Incident Type :</h3>
+			<h3 class="title">Assign WorkStream to Incident Type</h3>
 			<span class="error">
-						<?php echo $errors->first('workstream_ids', '* :message'); ?>
+				<?php echo $errors->first('workstream_ids', '* :message'); ?>
 			</span>
 		</div>
 
-		@foreach($workstreams as $workstream)
-		<!-- <div class="">
-			<label for="">{{$workstream->name}}</label>
-			<input type="checkbox" name="workstream_ids[]" value="{{$workstream->id}}">
-		</div> -->
-		<div class="toggles">
-			<div class="item">
-				<label>{{$workstream->name}}</label>
-				<div class="toggle-bar" onclick="toggleButton(this)">
-					<input type="checkbox" name="workstream_ids[]" value="{{$workstream->id}}">
-					<span class="off">Off</span>
+		<div class="toggles" style="margin-top:0;">
+			@foreach($workstreams as $workstream)
+				<div class="item">
+					<label>{{$workstream->name}}</label>
+					<div class="toggle-bar" onclick="toggleButton(this)">
+						<input type="checkbox" name="workstream_ids[]" value="{{$workstream->id}}">
+						<span class="off">Off</span>
+					</div>
 				</div>
-			</div>
+			@endforeach
 		</div>
-		@endforeach
 
 	<button type="submit" class="primary">Create</button>
 	</form>

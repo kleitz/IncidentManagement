@@ -27,8 +27,8 @@
 	    	</span>
 		</div>
 
-		<div class="">
-			<select class="" name="form_id">
+		<div class="select">
+			<select class="cstm-select" name="form_id">
 				@foreach($forms as $form)
 				<option value="{{$form->id}}"
 				@if($form->id === $incident_type->form_id)
@@ -37,25 +37,18 @@
 				>{{$form->name}}</option>
 				@endforeach
 			</select>
+			<i class="fa fa-chevron-down"></i>
 		</div>
 
 		<div>
-			<h3>Assign WorkStream to Incident Type</h3>
+			<h3 class="title">Assign WorkStream to Incident Type</h3>
 			<span class="error">
 						<?php echo $errors->first('workstream_ids', '* :message'); ?>
 			</span>
 		</div>
 
+		<div class="toggles" style="margin-top:0;">
 		@foreach($workstreams as $workstream)
-		<!-- <div class="">
-			<label for="">{{$workstream->name}}</label>
-			<input type="checkbox" name="workstream_ids[]" value="{{$workstream->id}}"
-			@if($incident_type->workstreams()->get()->contains($workstream->id))
-			checked
-			@endif
-			>
-		</div> -->
-		<div class="toggles">
 			<div class="item">
 				<label>{{$workstream->name}}</label>
 				@if($incident_type->workstreams()->get()->contains($workstream->id))
@@ -70,8 +63,8 @@
 				</div>
 				@endif
 			</div>
-		</div>
 		@endforeach
+		</div>
 
 	<button type="submit" class="primary">Save</button>
 </form>

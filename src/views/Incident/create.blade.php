@@ -9,7 +9,7 @@
     </div>
     <a href="{{url('incident')}}"><button type="button" class="primary">Back</button></a>
 </div>
-<div class="" id="forms-div">
+<div class="form-elems" id="forms-div">
 	<form role="form" id="createIncident-id" method="POST" action="{{ url(Request::url()) }}">
 		<input type="hidden" id="incident-token" name="_token" value="{{ csrf_token() }}">
 			<div>
@@ -20,24 +20,26 @@
 			</div>
 
 			<div>
-				<input type="textarea" id="incident-description" placeholder="Description" name="description" value="{{old('textarea')}}" required style="height: 200px">
+				<!-- <input type="textarea" id="incident-description" placeholder="Description" name="description" value="{{old('textarea')}}" required style="height: 200px"> -->
+				<textarea id="incident-description" placeholder="Description" name="description" value="{{old('textarea')}}" required></textarea>
 			    <span class="error">
 			          <?php echo $errors->first('description', '* :message'); ?>
 			    </span>
 			</div>
 
-			<div>
-				<select class="" id="incident-type-id" name="incident_type_id" onchange="createForm(this.value)" required>
-					<option value="">--select---</option>
+			<div class="select">
+				<select class="cstm-select" id="incident-type-id" name="incident_type_id" onchange="createForm(this.value)" required>
+					<option value="">Select</option>
 					@foreach($incident_types as $incident_type)
 					<option value="{{$incident_type->id}}">{{$incident_type->name}}</option>
 					@endforeach
 				</select>
+				<i class="fa fa-chevron-down"></i>
 			</div>
 
 			<div id = "incident-type-form"></div>
 
-		<button type="submit" class="primary">Create</button>
+		<button type="submit" class="primary">Create Incident</button>
 		</form>
 	</div>
 </div>

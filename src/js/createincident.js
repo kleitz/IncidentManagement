@@ -148,13 +148,20 @@ function createTextareaElement(input)
 
 function createSelectElement(input)
 {
+  var div = document.createElement('div');
+      div.setAttribute('class','select');
+
+  var icon = document.createElement('i');
+      icon.setAttribute('class','fa fa-chevron-down');
+
   var element = document.createElement('select');
   element.setAttribute('placeholder',input['label']);
+  element.setAttribute('class','cstm-select');
   element.setAttribute('name',input['name']);
   element.setAttribute('required','required');
   var option = document.createElement('option');
   option.value = "";
-  option.innerHTML = "--select--";
+  option.innerHTML = "Select";
   element.appendChild(option);
   for (var i=0;i<input.options.length;i++) {
     var option = document.createElement('option');
@@ -165,7 +172,9 @@ function createSelectElement(input)
     }
     element.appendChild(option);
   }
-  return element;
+  div.appendChild(element);
+  div.appendChild(icon);
+  return div;
 }
 
 
