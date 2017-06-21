@@ -1,5 +1,5 @@
 
-if (location.pathname == 'incident/create') {
+if (location.pathname == '/incident/create') {
   var incidentTypes = document.getElementById('data').value;
   incidentTypes = JSON.parse(incidentTypes);
 
@@ -75,6 +75,10 @@ function jsonToForm ( formInputs ) {
 
 function createInputElement(input)
 {
+  if(input['type'] == 'checkbox')
+  {
+    return createCheckBox(input);
+  }
   var element = document.createElement('input');
   element.setAttribute('type',input['type']);
   element.setAttribute('placeholder',input['label']);
@@ -85,6 +89,47 @@ function createInputElement(input)
   if(input['value']){
     element.value = input['value'];
   }
+  return element;
+}
+
+function createCheckBox(input)
+{
+  var element = document.createElement('div');
+  element.setAttribute('class','toggles');
+
+  var divElement = document.createElement('div');
+  divElement.setAttribute('class','item');
+
+  var label = document.createElement('label');
+  label.innerHTML = input['label'];
+  divElement.appendChild(label);
+
+  var subDivElement = document.createElement('div');
+  subDivElement.setAttribute('class','toggle-bar');
+  subDivElement.setAttribute('onclick',"toggleButton(this)");
+  if ( input['value'] ) {
+    subDivElement.setAttribute('class','toggle-bar Active');
+  }
+
+  var inputElement = document.createElement('input');
+  inputElement.setAttribute('type',input['type']);
+  inputElement.setAttribute('name',input['name']);
+  if (input['value']){
+    inputElement.setAttribute('checked','checked');
+  }
+  subDivElement.appendChild(inputElement);
+
+  var spanElement = document.createElement('span');
+  spanElement.setAttribute('class','off');
+  spanElement.innerHTML = 'Off';
+  if (input['value']) {
+    spanElement.setAttribute('class','on');
+    spanElement.innerHTML = 'On';
+  }
+  subDivElement.appendChild(spanElement);
+
+  divElement.appendChild(subDivElement);
+  element.appendChild(divElement);
   return element;
 }
 

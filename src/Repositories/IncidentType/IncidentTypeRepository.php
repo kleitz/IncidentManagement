@@ -47,8 +47,8 @@ class IncidentTypeRepository implements IncidentTypeInterface
 	 */
 	public function store($request)
 	{
-		$input = $request->all();
-		$incident_type = IncidentType::create($input);		
+		$input = $request->all();		
+		$incident_type = IncidentType::create($input);
 		$incident_type->workstreams()->sync($input['workstream_ids']);
 		return redirect('incident/type');
 	}
@@ -81,8 +81,8 @@ class IncidentTypeRepository implements IncidentTypeInterface
 		$incident_type = IncidentType::findOrFail($id);
 		$incident_type->name = $request->name;
 		$incident_type->description = $request->description;
+		$incident_type->form_id = $request->form_id;
 		$incident_type->save();
-		$incident_type->forms()->sync($input['form_ids']);
 		$incident_type->workstreams()->sync($input['workstream_ids']);
 		return redirect('incident/type');
 	}
