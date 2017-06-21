@@ -8,7 +8,7 @@
 @section('content')
 <div class="content-header">
 	<div class="title">
-      <h1>Incident</h1>
+      <h1>Incident Management</h1>
     </div>
     @if(Auth::user()->hasUrlAccess('incident/create'))
 	   <a href="{{url('incident/create')}}"><button type="button" class="primary">Create Incident</button></a>
