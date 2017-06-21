@@ -47,14 +47,30 @@
 		</div>
 
 		@foreach($workstreams as $workstream)
-		<div class="">
+		<!-- <div class="">
 			<label for="">{{$workstream->name}}</label>
 			<input type="checkbox" name="workstream_ids[]" value="{{$workstream->id}}"
 			@if($incident_type->workstreams()->get()->contains($workstream->id))
 			checked
 			@endif
 			>
-		</div>
+		</div> -->
+		<table class="striped datatable">
+			<tbody>
+			<tr>
+				<td><label class="checkbox">{{$workstream->name}}
+						<!-- <input name="" data-field="input" data-type="checkbox" type="checkbox" onclick="toggleCheckbox(this)" style="position: absolute; right: 0; top: 0;"> -->
+						<input type="checkbox" name="workstream_ids[]" value="{{$workstream->id}}" onclick="toggleCheckbox(this)" style="position: absolute; right: 0; top: 0;" 
+						@if($incident_type->workstreams()->get()->contains($workstream->id))
+						checked
+						@endif
+						>
+						<i class="fa fa-check" style="position: absolute; right: 6px; top: 0;"></i>
+						<!-- <span>Checkbox</span> -->
+				</label></td>
+			</tr>
+			</tbody>
+		</table>
 		@endforeach
 
 	<button type="submit" class="primary">Save</button>
