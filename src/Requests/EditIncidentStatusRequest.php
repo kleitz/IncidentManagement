@@ -3,7 +3,7 @@ namespace IncidentManagement\Requests;
 
 use App\Http\Requests\Request;
 
-class EditIncidentRequest extends Request {
+class EditIncidentStatusRequest extends Request {
 
 	/**
 	 * Determine if the user is authorized to make this request.
@@ -23,17 +23,15 @@ class EditIncidentRequest extends Request {
 	public function rules()
 	{
 		return [
-			'name' => 'required|max:255',
-			'description' => 'required',
-			'form_answer' => 'required',
-			'priority_id' => 'required|exists:incident_priorities,id'
+			'status_id' => 'required|exists:incident_statuses,id'
 		];
 	}
 
 	public function messages()
 	{
 		return [
-			'form_answer.required' => 'Please Fill the Form.',
+			'status_id.required' => 'Please select the status',
+			'status_id.exsits' => 'Please select the status from the dropdown',
 		];
 	}
 

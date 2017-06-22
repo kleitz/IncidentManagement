@@ -10,5 +10,6 @@ interface IncidentInterface
 	public function edit($id);
 	public function update($request,$id);
 	public function delete($id);
+	public function statusUpdate($request,$id);
 
 }

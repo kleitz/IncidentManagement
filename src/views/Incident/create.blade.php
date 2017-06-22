@@ -29,9 +29,19 @@
 
 			<div class="select">
 				<select class="cstm-select" id="incident-type-id" name="incident_type_id" onchange="createForm(this.value)" required>
-					<option value="">Select</option>
+					<option value="">Select Incident Type</option>
 					@foreach($incident_types as $incident_type)
 					<option value="{{$incident_type->id}}">{{$incident_type->name}}</option>
+					@endforeach
+				</select>
+				<i class="fa fa-chevron-down"></i>
+			</div>
+
+			<div class="select">
+				<select class="cstm-select" id="incident-priority-id" name="priority_id" required>
+					<option value="">Select Incident Priority</option>
+					@foreach($incident_priorities as $incident_priority)
+					<option value="{{$incident_priority->id}}">{{$incident_priority->name}}</option>
 					@endforeach
 				</select>
 				<i class="fa fa-chevron-down"></i>

@@ -27,6 +27,7 @@ class StoreIncidentRequest extends Request {
 			'description' => 'required',
 			'form_answer' => 'required',
 			'incident_type_id' => 'required|exists:incident_types,id',
+			'priority_id' => 'required|exists:incident_priorities,id'
 		];
 	}
 
@@ -35,7 +36,9 @@ class StoreIncidentRequest extends Request {
 		return [
 			'form_answer.required' => 'Please Fill the Form.',
 			'incident_type_id.exists' => 'Please Select Incident Type from the List.',
-			'incident_type_id.required' => 'Please Select Incident.',
+			'incident_type_id.required' => 'Please Select Incident Type.',
+			'priority_id.exists' => 'Please Select Incident Priority from the List.',
+			'priority_id.required' => 'Please Select Incident Priority.',
 		];
 	}
 

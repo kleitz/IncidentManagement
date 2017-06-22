@@ -2,6 +2,8 @@
 namespace IncidentManagement\Repositories\Incident;
 use IncidentManagement\Models\Incident;
 use IncidentManagement\Models\IncidentType;
+use IncidentManagement\Models\IncidentPriority;
+use IncidentManagement\Models\IncidentStatus;
 use Auth;
 use FormBuilder\Models\Form;
 use WorkStream\Models\Workstream;
@@ -12,6 +14,7 @@ class IncidentRepository implements IncidentInterface
 	public function __construct(FormAnswerInterface $form_answer)
 	{
 		$this->form_answer = $form_answer;
+		$this->open_status_id = 1;
 	}
 
 	/**
@@ -21,6 +24,7 @@ class IncidentRepository implements IncidentInterface
 	public function index()
 	{
 		$incidents = Incident::all();
+		$incident_statuses = IncidentStatus::all();
 		return view('vendor.IncidentManagement.Incident.index')->with('incidents',$incidents);
 	}
 
@@ -32,7 +36,10 @@ class IncidentRepository implements IncidentInterface
 	public function show($id)
 	{
 		$incident = Incident::findOrFail($id);
-		return view('vendor.IncidentManagement.Incident.view')->with('incident',$incident);
+		$statuses = IncidentStatus::all();
+		return view('vendor.IncidentManagement.Incident.view')
+								->with('incident',$incident)
+								->with('statuses',$statuses);
 	}
 
 	/**
@@ -45,9 +52,11 @@ class IncidentRepository implements IncidentInterface
 		foreach ($incident_types as $incident_type) {
 			 $incident_type->form;
 		}
+		$incident_priorities = IncidentPriority::all();
 		return view('vendor.IncidentManagement.Incident.create')
 								->with('incident_types',$incident_types)
-								->with('incident_type_json',$incident_types->toJson());
+								->with('incident_type_json',$incident_types->toJson())
+								->with('incident_priorities',$incident_priorities);
 	}
 
 	/**
@@ -59,6 +68,7 @@ class IncidentRepository implements IncidentInterface
 	{
 		$input = $request->all();
 		$input['created_by'] 	= Auth::user()->id;
+		$input['status_id']   = $this->open_status_id;
 		$incident_type 				= IncidentType::findOrFail($input['incident_type_id']);
 		$incident_form_answer = $this->form_answer->storeFormAnswer($incident_type->form,json_decode($input['form_answer']));
 		$input['form_answer_id'] = $incident_form_answer->id;
@@ -77,8 +87,11 @@ class IncidentRepository implements IncidentInterface
 		if($incident->created_by != Auth::user()->id){
 			return redirect()->back();
 		}
+		$incident_priorities = IncidentPriority::all();
+
 		return view('vendor.IncidentManagement.Incident.edit')
-								->with('incident',$incident);
+								->with('incident',$incident)
+								->with('incident_priorities',$incident_priorities);
 	}
 
 	/**
@@ -93,6 +106,7 @@ class IncidentRepository implements IncidentInterface
 		$incident = Incident::findOrFail($id);
 		$incident->name = $input['name'];
 		$incident->description = $input['description'];
+		$incident->priority_id = $input['priority_id'];
 		$incident->save();
 		$this->form_answer->updateFormAnswer($incident->formAnswer,json_decode($input['form_answer']));
 		return redirect('incident');
@@ -107,6 +121,20 @@ class IncidentRepository implements IncidentInterface
 	{
 		$incident_type = Incident::findOrFail($id);
 		$incident_type->delete();
+		return redirect()->back();
+	}
+
+	/**
+	 * [statusUpdate]
+	 * @param  Request $request EditIncidentStatusRequest
+	 * @param  Int $id      running Id for .
+	 * @return [type]          [description]
+	 */
+	public function statusUpdate($request,$id)
+	{
+		$incident = Incident::findOrFail($id);
+		$incident->status_id = $request->status_id;
+		$incident->save();
 		return redirect()->back();
 	}
 }

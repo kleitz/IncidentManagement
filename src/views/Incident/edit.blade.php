@@ -28,6 +28,22 @@
 	    </span>
 		</div>
 
+		<div class="select">
+			<select class="cstm-select" id="incident-priority-id" name="incident_priority_id" required>
+				<option value="">Select Incident Priority</option>
+				@foreach($incident_priorities as $incident_priority)
+				<option value="{{$incident_priority->id}}"
+					@if($incident_priority->id === $incident->priority->id)
+					selected
+					@endif
+					>{{$incident_priority->name}}</option>
+				@endforeach
+			</select>
+			<i class="fa fa-chevron-down"></i>
+		</div>
+
+
+
 		<div id="form-answer-div"></div>
 
 	<button type="submit" class="primary">Save</button>
@@ -56,7 +72,7 @@
 			var v = elem.getAttribute('data-user-id');
 
 				var input = $(elem).find('input')[0];
-						input.setAttribute('checked',true);						
+						input.setAttribute('checked',true);
 
 				var span = $(elem).find('span');
 						$(span).removeClass('off').addClass('on');

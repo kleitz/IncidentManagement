@@ -19,4 +19,5 @@ Route::group(['prefix'=> 'incident','middleware'=>['auth','roles']],function()
  Route::get('/view/{id}','IncidentManagement\Controllers\IncidentController@show');
  Route::post('/edit/{id}','IncidentManagement\Controllers\IncidentController@update');
  Route::get('/delete/{id}','IncidentManagement\Controllers\IncidentController@destroy');
+ Route::post('/status/{id}','IncidentManagement\Controllers\IncidentController@statusUpdate');
 });

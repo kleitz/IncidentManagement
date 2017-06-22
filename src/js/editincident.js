@@ -12,6 +12,7 @@ EditIncidentForm.addEventListener("submit", function(event){
     output['_token'] = document.getElementById('incident-token').value;
     output['name'] = document.getElementById('incident-name').value;
     output['description'] = document.getElementById('incident-description').value;
+    output['priority_id'] = document.getElementById('incident-priority-id').value;
     var formsDiv = document.getElementById('form-answer-div');
     output['form_answer'] = JSON.stringify(toJSONString(formsDiv));
     // console.log(output);

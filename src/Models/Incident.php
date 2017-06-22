@@ -6,7 +6,17 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Incident extends Model {
 	use SoftDeletes;
-	protected $fillable = ['name','description','incident_type_id','form_answer_id','created_by','updated_by'];
+	protected $fillable = ['name','description','incident_type_id','status_id','form_answer_id','created_by','updated_by','priority_id'];
+
+	public function status()
+	{
+		return $this->belongsTo('IncidentManagement\Models\IncidentStatus','status_id');
+	}
+
+	public function priority()
+	{
+		return $this->belongsTo('IncidentManagement\Models\IncidentPriority','priority_id');
+	}
 
 	public function incidentType()
 	{

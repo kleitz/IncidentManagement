@@ -57,6 +57,8 @@
              <th>Name</th>
              <th>Description</th>
              <th>Incident Type</th>
+             <th>Incident Priority</th>
+             <th>Status</th>
              <th>Actions</th>
         </tr>
     </thead>
@@ -66,6 +68,8 @@
              <td>{{ $incident->name }}</td>
              <td>{{ $incident->description}}</td>
              <td>{{ $incident->incidentType->name}}</td>
+             <td>{{ $incident->priority->name}}</td>
+             <td>{{ $incident->status->name }}</td>
              <td class="actions">
                 <a href="{{url('incident/view',$incident->id)}}">
                     <button type="button" class="dark"><i class="fa fa-eye"></i></button>

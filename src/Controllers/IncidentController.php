@@ -92,4 +92,15 @@ class IncidentController extends Controller {
 		return $this->incident->delete($id);
 	}
 
+	/**
+	 * [statusUpdate updates status]
+	 * @param  RequestsEditIncidentStatusRequest $request [description]
+	 * @param  int                            $id      		incident running ID
+	 * @return [type]                                     [description]
+	 */
+	public function statusUpdate(Requests\EditIncidentStatusRequest $request,$id)
+	{
+		return $this->incident->statusUpdate($request,$id);
+	}
+
 }
