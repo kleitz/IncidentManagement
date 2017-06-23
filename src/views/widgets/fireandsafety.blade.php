@@ -15,7 +15,10 @@ window.onload = function () {
 			})
 		}
 		var chart = new CanvasJS.Chart("fire-and-safety",
-		{
+		{	
+			
+			height:180,
+
 			title:{
 				text: "Fire And Safety",
 				verticalAlign: 'top',
@@ -25,9 +28,9 @@ window.onload = function () {
 			data: [
 			{
 				type: "doughnut",
-				startAngle:20,
+				startAngle:30,
 				toolTipContent: "{label}: {y} - <strong>#percent%</strong>",
-				indexLabel: "{label} #percent%",
+				indexLabel: "{label}  #percent%",
 				dataPoints: openedIncidents
 			}
 			]
