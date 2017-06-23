@@ -22,7 +22,7 @@
       <h3 class="title">WorkStream 1</h3>
     </div>
     <div class="wg-desc">
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
+      @include('vendor.IncidentManagement.widgets.fireandsafety')
     </div>
   </div>
   <div class="wg wg2">

@@ -86,12 +86,11 @@
      if($(elem).hasClass('active'))
      {
       var input = $(elem).find('input')[0];
-          $(input).removeAttr('checked');
-          $(input).removeAttr('value');
+          $(input).removeAttr('checked');          
            var span = $(elem).find('span');
            $(span).removeClass('on').addClass('off');
            $(span).text('Off');
-      $(elem).removeClass('active');
+      		$(elem).removeClass('active');
      }
      else
      {
@@ -99,7 +98,6 @@
 
          var input = $(elem).find('input')[0];
              input.setAttribute('checked',true);
-             input.value = v;
 
          var span = $(elem).find('span');
              $(span).removeClass('off').addClass('on');

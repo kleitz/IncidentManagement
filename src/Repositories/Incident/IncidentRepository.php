@@ -4,6 +4,7 @@ use IncidentManagement\Models\Incident;
 use IncidentManagement\Models\IncidentType;
 use IncidentManagement\Models\IncidentPriority;
 use IncidentManagement\Models\IncidentStatus;
+use IncidentManagement\Models\IncidentLog;
 use Auth;
 use FormBuilder\Models\Form;
 use WorkStream\Models\Workstream;
@@ -72,7 +73,12 @@ class IncidentRepository implements IncidentInterface
 		$incident_type 				= IncidentType::findOrFail($input['incident_type_id']);
 		$incident_form_answer = $this->form_answer->storeFormAnswer($incident_type->form,json_decode($input['form_answer']));
 		$input['form_answer_id'] = $incident_form_answer->id;
-		Incident::create($input);
+		$incident = Incident::create($input);
+		IncidentLog::create([
+			'incident_id' => $incident->id,
+			'updated_by'	=> Auth::user()->id,
+			'action'			=> 'created',
+		]);
 		return redirect('incident');
 	}
 
@@ -109,6 +115,11 @@ class IncidentRepository implements IncidentInterface
 		$incident->priority_id = $input['priority_id'];
 		$incident->save();
 		$this->form_answer->updateFormAnswer($incident->formAnswer,json_decode($input['form_answer']));
+		IncidentLog::create([
+			'incident_id' => $incident->id,
+			'updated_by'	=> Auth::user()->id,
+			'action'			=> 'updated',
+		]);
 		return redirect('incident');
 	}
 
@@ -119,8 +130,13 @@ class IncidentRepository implements IncidentInterface
 	 */
 	public function delete($id)
 	{
-		$incident_type = Incident::findOrFail($id);
-		$incident_type->delete();
+		$incident = Incident::findOrFail($id);
+		$incident->delete();
+		IncidentLog::create([
+			'incident_id' => $incident->id,
+			'updated_by'	=> Auth::user()->id,
+			'action'			=> 'deleted',
+		]);
 		return redirect()->back();
 	}
 
@@ -135,6 +151,11 @@ class IncidentRepository implements IncidentInterface
 		$incident = Incident::findOrFail($id);
 		$incident->status_id = $request->status_id;
 		$incident->save();
+		IncidentLog::create([
+			'incident_id' => $incident->id,
+			'updated_by'	=> Auth::user()->id,
+			'action'			=> 'updated status',
+		]);
 		return redirect()->back();
 	}
 }

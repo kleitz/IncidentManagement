@@ -55,4 +55,11 @@
 		 </ul>
  	</div>
 </div>
+<br>
+<h4>Incident Logs</h4>
+<ul>
+	@foreach($incident->logs as $log)
+	<li>{{$log->updatedBy->firstname}} {{$log->updatedBy->lastname}} {{$log->action}} {{$log->created_at->diffForHumans()}} </li>
+	@endforeach
+</ul>
 @endsection

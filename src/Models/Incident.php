@@ -5,8 +5,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Incident extends Model {
+
 	use SoftDeletes;
+
 	protected $fillable = ['name','description','incident_type_id','status_id','form_answer_id','created_by','updated_by','priority_id'];
+
+	public function logs()
+	{
+		return $this->hasMany('IncidentManagement\Models\IncidentLog');
+	}
 
 	public function status()
 	{

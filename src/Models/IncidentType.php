@@ -20,4 +20,9 @@ class IncidentType extends Model {
 		return $this->belongsTo('FormBuilder\Models\Form');
 	}
 
+	public function incidents()
+	{
+		return $this->hasMany('IncidentManagement\Models\Incident');
+	}
+
 }
