@@ -13,7 +13,8 @@
 	<form role="form" id="createIncident-id" method="POST" action="{{ url(Request::url()) }}">
 		<input type="hidden" id="incident-token" name="_token" value="{{ csrf_token() }}">
 			<div>
-				<input type="text" id="incident-name" placeholder="Name" name="name" value="{{old('name')}}" required>
+				<label>Name :</label>
+				<input type="text" id="incident-name" name="name" value="{{old('name')}}" required>
 			    <span class="error">
 			          <?php echo $errors->first('name', '* :message'); ?>
 			    </span>
@@ -21,15 +22,18 @@
 
 			<div>
 				<!-- <input type="textarea" id="incident-description" placeholder="Description" name="description" value="{{old('textarea')}}" required style="height: 200px"> -->
-				<textarea id="incident-description" placeholder="Description" name="description" value="{{old('textarea')}}" required></textarea>
+				<label>Description :</label>
+				<textarea id="incident-description" name="description" value="{{old('textarea')}}" required></textarea>
 			    <span class="error">
 			          <?php echo $errors->first('description', '* :message'); ?>
 			    </span>
 			</div>
 
 			<div class="select">
+				<label>Select Incident Type :</label>
 				<select class="cstm-select" id="incident-type-id" name="incident_type_id" onchange="createForm(this.value)" required>
-					<option value="">Select Incident Type</option>
+					<!-- <option value="">Select Incident Type</option> -->
+					<option></option>
 					@foreach($incident_types as $incident_type)
 					<option value="{{$incident_type->id}}">{{$incident_type->name}}</option>
 					@endforeach
@@ -38,8 +42,10 @@
 			</div>
 
 			<div class="select">
+				<label>Select Incident Priority :</label>
 				<select class="cstm-select" id="incident-priority-id" name="priority_id" required>
-					<option value="">Select Incident Priority</option>
+					<!-- <option value="">Select Incident Priority</option> -->
+					<option></option>
 					@foreach($incident_priorities as $incident_priority)
 					<option value="{{$incident_priority->id}}">{{$incident_priority->name}}</option>
 					@endforeach
