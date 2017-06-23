@@ -17,15 +17,18 @@
 </div>
 <!-- Widgets -->
 <div class="widgets">
+  @foreach(Auth::user()->workstreams as $workstream)
   <div class="wg wg1">
     <div class="wg-title">
-      <h3 class="title">WorkStream 1</h3>
+      <h3 class="title">{{$workstream->name}}</h3>
     </div>
     <div class="wg-desc">
-      @include('vendor.IncidentManagement.widgets.fireandsafety')
+      @include('vendor.IncidentManagement.widgets.incident_template')
     </div>
   </div>
-  <div class="wg wg2">
+  @endforeach
+
+  <!-- <div class="wg wg2">
     <div class="wg-title">
       <h3 class="title">WorkStream 2</h3>
     </div>
@@ -48,7 +51,7 @@
     <div class="wg-desc">
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
     </div>
-  </div>
+  </div> -->
 </div>
 
 	<table class="table striped datatable">

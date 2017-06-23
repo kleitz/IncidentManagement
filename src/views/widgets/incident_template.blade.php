@@ -1,9 +1,9 @@
-<?php  $firesafety_workstream_id = 8; ?>
+
 <script type="text/javascript">
 window.onload = function () {
 	$.ajax({
 	  method: "get",
-	  url: "workstream/api/incidents/{{$firesafety_workstream_id}}",
+	  url: "workstream/api/incidents/{{$workstream->id}}",
 	})
 	.done(function( data ) {
 		var openedIncidents = [];
@@ -14,13 +14,13 @@ window.onload = function () {
 				label:data[i].incident_type,
 			})
 		}
-		var chart = new CanvasJS.Chart("fire-and-safety",
-		{	
-			
+		var chart = new CanvasJS.Chart("{{str_slug($workstream->name)}}",
+		{
+
 			height:180,
 
 			title:{
-				text: "Fire And Safety",
+				text: "{{$workstream->name}}",
 				verticalAlign: 'top',
 				horizontalAlign: 'left'
 			},
@@ -39,4 +39,4 @@ window.onload = function () {
 	});
 }
 </script>
-<div id="fire-and-safety" style="height: 300px; width: 100%;"></div>
+<div id="{{str_slug($workstream->name)}}" style="height: 300px; width: 100%;"></div>
