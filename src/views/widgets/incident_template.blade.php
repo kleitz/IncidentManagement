@@ -1,11 +1,12 @@
 
 <script type="text/javascript">
-window.onload = function () {
+{{str_slug($workstream->name,'_')}} = function () {	
 	$.ajax({
 	  method: "get",
 	  url: "workstream/api/incidents/{{$workstream->id}}",
 	})
 	.done(function( data ) {
+		console.log(data);
 		var openedIncidents = [];
 		for( var i=0; i<data.length ; i++)
 		{
@@ -14,7 +15,7 @@ window.onload = function () {
 				label:data[i].incident_type,
 			})
 		}
-		var chart = new CanvasJS.Chart("{{str_slug($workstream->name)}}",
+		var {{str_slug($workstream->name,'_')}} = new CanvasJS.Chart("{{str_slug($workstream->name,'_')}}",
 		{
 
 			height:180,
@@ -35,8 +36,8 @@ window.onload = function () {
 			}
 			]
 		});
-		chart.render();
+		{{str_slug($workstream->name,'_')}}.render();
 	});
 }
 </script>
-<div id="{{str_slug($workstream->name)}}" style="height: 300px; width: 100%;"></div>
+<div id="{{str_slug($workstream->name,'_')}}" style="height: 300px; width: 100%;"></div>

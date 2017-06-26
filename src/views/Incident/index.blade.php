@@ -27,6 +27,13 @@
     </div>
   </div>
   @endforeach
+  <script type="text/javascript">
+    window.onload = function (){
+      @foreach(Auth::user()->workstreams as $workstream)
+        {{str_slug($workstream->name,'_')}}();
+      @endforeach
+    }
+  </script>
 
   <!-- <div class="wg wg2">
     <div class="wg-title">

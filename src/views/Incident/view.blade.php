@@ -39,20 +39,22 @@
  <h3 class="title">{{$incident->name}}</h3>
  	<div class="tile-content">
 		 <p>{{$incident->description}}</p>
-		 <ul>
-		 @foreach($inputs as $value)
-		 	<li>
-				<span>{{$value->name}} :</span>
-				<b>
-					@if(isset($value->value))
-					{{$value->value}}
-					@else
-					false
-					@endif
-				</b>
-			</li>
-		 @endforeach
-		 </ul>
+		 <table>
+			 <tbody>
+				 @foreach($inputs as $value)
+				 <tr>
+				 	<td>{{$value->label}}</td>
+					<td>
+						@if(isset($value->value))
+						{{$value->value}}
+						@else
+						false
+						@endif
+					</td>
+				 </tr>
+				 @endforeach
+			 </tbody>
+		 </table>
  	</div>
 </div>
 <br>

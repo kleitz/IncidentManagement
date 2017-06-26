@@ -8,7 +8,7 @@ class Incident extends Model {
 
 	use SoftDeletes;
 
-	protected $fillable = ['name','description','incident_type_id','status_id','form_answer_id','created_by','updated_by','priority_id'];
+	protected $fillable = ['name','description','incident_type_id','status_id','form_answer_id','created_by','updated_by','priority_id','level_id'];
 
 	public function logs()
 	{

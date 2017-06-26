@@ -24,8 +24,9 @@ class IncidentRepository implements IncidentInterface
 	 */
 	public function index()
 	{
-		$incidents = Incident::all();
-		$incident_statuses = IncidentStatus::all();
+		$incidents = Auth::user()->getAllIncidents();
+				
+		// $incident_statuses = IncidentStatus::all();
 		return view('vendor.IncidentManagement.Incident.index')->with('incidents',$incidents);
 	}
 
@@ -70,6 +71,7 @@ class IncidentRepository implements IncidentInterface
 		$input = $request->all();
 		$input['created_by'] 	= Auth::user()->id;
 		$input['status_id']   = $this->open_status_id;
+		$input['level_id']		= Auth::user()->level_id;
 		$incident_type 				= IncidentType::findOrFail($input['incident_type_id']);
 		$incident_form_answer = $this->form_answer->storeFormAnswer($incident_type->form,json_decode($input['form_answer']));
 		$input['form_answer_id'] = $incident_form_answer->id;
@@ -110,6 +112,9 @@ class IncidentRepository implements IncidentInterface
 	{
 		$input = $request->all();
 		$incident = Incident::findOrFail($id);
+		if($incident->created_by != Auth::user()->id){
+			return redirect()->back();
+		}
 		$incident->name = $input['name'];
 		$incident->description = $input['description'];
 		$incident->priority_id = $input['priority_id'];
