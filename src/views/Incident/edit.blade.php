@@ -15,21 +15,27 @@
 <form role="form" method="POST" id="edit-incident-form" action="{{ url(Request::url()) }}">
 	<input type="hidden" name="_token" id="incident-token" value="{{ csrf_token() }}">
 		<div>
-			<input type="text" name="name" id="incident-name" placeholder="Name" value="{{$incident->name}}" required>
 			<span class="error">
 		      <?php echo $errors->first('name', '* :message'); ?>
 		   </span>
+			<label>Name :</label>
+			<input type="text" name="name" id="incident-name" placeholder="Name" value="{{$incident->name}}">
 		</div>
 
 		<div>
-			<textarea name="description" id="incident-description" placeholder="Description" required>{{$incident->description}}</textarea>
 			<span class="error">
 	          <?php echo $errors->first('description', '* :message'); ?>
-	    </span>
+	    	</span>
+			<label>Description :</label>
+			<textarea name="description" id="incident-description" placeholder="Description">{{$incident->description}}</textarea>
 		</div>
 
 		<div class="select">
-			<select class="cstm-select" id="incident-priority-id" name="incident_priority_id" required>
+			<span class="error">
+	          <?php echo $errors->first('incident-priority-id', '* :message'); ?>
+	    	</span>
+			<label>Select Incident Priority</label>
+			<select class="cstm-select" id="incident-priority-id" name="incident_priority_id">
 				<option value="">Select Incident Priority</option>
 				@foreach($incident_priorities as $incident_priority)
 				<option value="{{$incident_priority->id}}"
@@ -46,7 +52,7 @@
 
 		<div id="form-answer-div"></div>
 
-	<button type="submit" class="primary">Save</button>
+	<button type="submit" class="primary" id="btn">Save</button>
 </form>
 </div>
 @endsection

@@ -13,25 +13,29 @@
 	<form role="form" id="createIncident-id" method="POST" action="{{ url(Request::url()) }}">
 		<input type="hidden" id="incident-token" name="_token" value="{{ csrf_token() }}">
 			<div>
-				<label>Name :</label>
-				<input type="text" id="incident-name" name="name" value="{{old('name')}}" required>
-			    <span class="error">
+				<span class="error">
 			          <?php echo $errors->first('name', '* :message'); ?>
 			    </span>
+				<label>Name :</label>
+				<input type="text" id="incident-name" name="name" value="{{old('name')}}">
 			</div>
 
 			<div>
 				<!-- <input type="textarea" id="incident-description" placeholder="Description" name="description" value="{{old('textarea')}}" required style="height: 200px"> -->
-				<label>Description :</label>
-				<textarea id="incident-description" name="description" value="{{old('textarea')}}" required></textarea>
-			    <span class="error">
+				<span class="error">
 			          <?php echo $errors->first('description', '* :message'); ?>
 			    </span>
+				<label>Description :</label>
+				<textarea id="incident-description" name="description" value="{{old('textarea')}}"></textarea>
+			    
 			</div>
 
 			<div class="select">
+				<span class="error">
+			          <?php echo $errors->first('incident_type_id', '* :message'); ?>
+			    </span>
 				<label>Select Incident Type :</label>
-				<select class="cstm-select" id="incident-type-id" name="incident_type_id" onchange="createForm(this.value)" required>
+				<select class="cstm-select" id="incident-type-id" name="incident_type_id" onchange="createForm(this.value)">
 					<!-- <option value="">Select Incident Type</option> -->
 					<option></option>
 					@foreach($incident_types as $incident_type)
@@ -42,8 +46,11 @@
 			</div>
 
 			<div class="select">
+				<span class="error">
+			          <?php echo $errors->first('priority_id', '* :message'); ?>
+			    </span>
 				<label>Select Incident Priority :</label>
-				<select class="cstm-select" id="incident-priority-id" name="priority_id" required>
+				<select class="cstm-select" id="incident-priority-id" name="priority_id">
 					<!-- <option value="">Select Incident Priority</option> -->
 					<option></option>
 					@foreach($incident_priorities as $incident_priority)
@@ -55,7 +62,7 @@
 
 			<div id = "incident-type-form"></div>
 
-		<button type="submit" class="primary">Create Incident</button>
+		<button type="submit" class="primary" id="btn">Create Incident</button>
 		</form>
 	</div>
 </div>
