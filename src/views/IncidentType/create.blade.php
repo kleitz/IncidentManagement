@@ -12,23 +12,26 @@
 <form role="form" method="POST" action="{{ url(Request::url()) }}">
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
 		<div>
-			<input type="text" placeholder="Name" name="name" value="{{old('name')}}" required>
-		    <span class="error">
+			<span class="error">
 		          <?php echo $errors->first('name', '* :message'); ?>
 		    </span>
+			<label>Name :</label>
+			<input type="text" name="name" value="{{old('name')}}">
 		</div>
 
 		<div>
 			<!-- <input type="textarea" placeholder="Description" name="description" value="{{old('textarea')}}" required style="height: 200px"> -->
-			<textarea name="description" placeholder="Description" value="{{old('textarea')}}"></textarea>
-		    <span class="error">
+			<span class="error">
 		          <?php echo $errors->first('description', '* :message'); ?>
 		    </span>
+			<label>Description :</label>
+			<textarea name="description" value="{{old('textarea')}}"></textarea>
 		</div>
 
 		<div class="select">
+			<label>Select Form :</label>
 			<select  name="form_id" class="cstm-select">
-				<option value="">Select Form</option>
+				<option value=""><!-- Select Form --></option>
 				@foreach($forms as $form)
 				<option value="{{$form->id}}">{{$form->name}}</option>
 				@endforeach
@@ -37,13 +40,15 @@
 		</div>
 
 		<div>
-			<h3 class="title">Assign WorkStream to Incident Type</h3>
-			<span class="error">
-				<?php echo $errors->first('workstream_ids', '* :message'); ?>
-			</span>
+			<!-- <h3 class="title">Assign WorkStream to Incident Type</h3> -->
+			
 		</div>
 
 		<div class="toggles" style="margin-top:0;">
+			<span class="error">
+				<?php echo $errors->first('workstream_ids', '* :message'); ?>
+			</span>
+			<label>WorkStream to be selected :</label>
 			@foreach($workstreams as $workstream)
 				<div class="item">
 					<label>{{$workstream->name}}</label>
