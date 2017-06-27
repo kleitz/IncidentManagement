@@ -29,9 +29,12 @@
 		</div>
 
 		<div class="select">
+			<span class="error">
+		          <?php echo $errors->first('form_id', '* :message'); ?>
+		  </span>
 			<label>Select Form :</label>
 			<select  name="form_id" class="cstm-select">
-				<option value=""><!-- Select Form --></option>
+				<option value="">Select Form</option>
 				@foreach($forms as $form)
 				<option value="{{$form->id}}">{{$form->name}}</option>
 				@endforeach
@@ -41,23 +44,21 @@
 
 		<div>
 			<!-- <h3 class="title">Assign WorkStream to Incident Type</h3> -->
-			
+
 		</div>
 
-		<div class="toggles" style="margin-top:0;">
+		<div class="select">
 			<span class="error">
-				<?php echo $errors->first('workstream_ids', '* :message'); ?>
-			</span>
-			<label>WorkStream to be selected :</label>
-			@foreach($workstreams as $workstream)
-				<div class="item">
-					<label>{{$workstream->name}}</label>
-					<div class="toggle-bar" onclick="toggleButton(this)">
-						<input type="checkbox" name="workstream_ids[]" value="{{$workstream->id}}">
-						<span class="off">Off</span>
-					</div>
-				</div>
-			@endforeach
+		          <?php echo $errors->first('workstream_id', '* :message'); ?>
+		  </span>
+			<label>Select WorkStream :</label>
+			<select  name="workstream_id" class="cstm-select">
+				<option value="">Select WorkStream</option>
+				@foreach($workstreams as $workstream)
+				<option value="{{$workstream->id}}">{{$workstream->name}}</option>
+				@endforeach
+			</select>
+			<i class="fa fa-chevron-down"></i>
 		</div>
 
 	<button type="submit" class="primary">Create</button>
@@ -91,7 +92,7 @@
        var v = elem.getAttribute('data-user-id');
 
          var input = $(elem).find('input')[0];
-             input.setAttribute('checked',true);             
+             input.setAttribute('checked',true);
 
          var span = $(elem).find('span');
              $(span).removeClass('off').addClass('on');

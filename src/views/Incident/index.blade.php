@@ -64,6 +64,7 @@
 	<table class="table striped datatable">
     <thead>
         <tr>
+             <th>Case No.</th>
              <th>Name</th>
              <th>Description</th>
              <th>Incident Type</th>
@@ -75,6 +76,7 @@
     <tbody>
      @foreach($incidents as $incident)
          <tr>
+             <td>#{{$incident->id}}</td>
              <td>{{ $incident->name }}</td>
              <td>{{ $incident->description}}</td>
              <td>{{ $incident->incidentType->name}}</td>

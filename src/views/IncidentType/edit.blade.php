@@ -19,7 +19,7 @@
 		   	</span>
 			<label>Name :</label>
 			<input type="text" name="name" value="{{$incident_type->name}}">
-			
+
 		</div>
 
 		<div>
@@ -28,7 +28,7 @@
 	    	</span>
 			<label>Description :</label>
 			<textarea name="description" placeholder="Description">{{$incident_type->description}}</textarea>
-			
+
 		</div>
 
 		<div class="select">
@@ -50,30 +50,24 @@
 
 		<div>
 			<!-- <h3 class="title">Assign WorkStream to Incident Type</h3> -->
-			
+
 		</div>
 
-		<div class="toggles" style="margin-top:0;">
-		<span class="error">
-						<?php echo $errors->first('workstream_ids', '* :message'); ?>
-		</span>
-		<label>WorkStream to be selected :</label>
-		@foreach($workstreams as $workstream)
-			<div class="item">
-				<label>{{$workstream->name}}</label>
-				@if($incident_type->workstreams()->get()->contains($workstream->id))
-				<div class="toggle-bar active" onclick="toggleButton(this)">
-					<input type="checkbox" name="workstream_ids[]" value="{{$workstream->id}}" checked>
-					<span class="on">ON</span>
-				</div>
-				@else
-				<div class="toggle-bar" onclick="toggleButton(this)">
-					<input type="checkbox" name="workstream_ids[]" value="{{$workstream->id}}">
-					<span class="off">Off</span>
-				</div>
+		<div class="select">
+			<span class="error">
+	          <?php echo $errors->first('workstream_id', '* :message'); ?>
+	    	</span>
+			<label>Select Workstream :</label>
+			<select class="cstm-select" name="workstream_id">
+				@foreach($workstreams as $workstream)
+				<option value="{{$workstream->id}}"
+				@if($workstream->id === $incident_type->form_id)
+				selected
 				@endif
-			</div>
-		@endforeach
+				>{{$workstream->name}}</option>
+				@endforeach
+			</select>
+			<i class="fa fa-chevron-down"></i>
 		</div>
 
 	<button type="submit" class="primary">Save</button>
@@ -96,7 +90,7 @@
      if($(elem).hasClass('active'))
      {
       var input = $(elem).find('input')[0];
-          $(input).removeAttr('checked');          
+          $(input).removeAttr('checked');
            var span = $(elem).find('span');
            $(span).removeClass('on').addClass('off');
            $(span).text('Off');

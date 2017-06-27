@@ -26,7 +26,7 @@ class StoreIncidentTypeRequest extends Request {
 			'name' => 'required|max:255',
 			'description' => 'required',
 			'form_id' => 'required|exists:forms,id',
-			'workstream_ids' => 'required|array',
+			'workstream_id' => 'required',
 		];
 	}
 
@@ -35,7 +35,7 @@ class StoreIncidentTypeRequest extends Request {
 		return [
 			'form_id.required' => 'Please Select Form.',
 			'form_id.exists' => 'Please Select Form In the List.',
-			'workstream_ids.required' => 'Please Select Workstreams.',
+			'workstream_id.required' => 'Please Select Workstreams.',
 		];
 	}
 

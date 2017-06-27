@@ -9,6 +9,8 @@ use Auth;
 use FormBuilder\Models\Form;
 use WorkStream\Models\Workstream;
 use FormBuilder\Repositories\FormAnswer\FormAnswerInterface;
+use EmailTemplates\Commands\SendIncidentNotification;
+use Queue;
 
 class IncidentRepository implements IncidentInterface
 {
@@ -25,7 +27,7 @@ class IncidentRepository implements IncidentInterface
 	public function index()
 	{
 		$incidents = Auth::user()->getAllIncidents();
-				
+
 		// $incident_statuses = IncidentStatus::all();
 		return view('vendor.IncidentManagement.Incident.index')->with('incidents',$incidents);
 	}
@@ -81,6 +83,7 @@ class IncidentRepository implements IncidentInterface
 			'updated_by'	=> Auth::user()->id,
 			'action'			=> 'created',
 		]);
+		Queue::push(new SendIncidentNotification($incident->id));
 		return redirect('incident');
 	}
 

@@ -26,7 +26,7 @@ class EditIncidentTypeRequest extends Request {
 			'name' => 'required|max:255',
 			'description' => 'required',
 			'form_id' => 'required|exists:forms,id',
-			'workstream_ids' => 'required|array',
+			'workstream_id' => 'required',
 		];
 	}
 
@@ -35,7 +35,7 @@ class EditIncidentTypeRequest extends Request {
 		return [
 			'form_id.required' => 'Please Select Forms.',
 			'form_id.exists' => 'Please Select Form In the List.',
-			'workstream_ids.required' => 'Please Select Workstream.',
+			'workstream_id.required' => 'Please Select Workstream.',
 		];
 	}
 
