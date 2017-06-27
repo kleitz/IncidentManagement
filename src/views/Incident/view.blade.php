@@ -11,10 +11,25 @@
     	<button type="button" class="primary">Back</button>
     </a>
 </div>
+<style media="screen">
+	.form-inline{
+		display:-webkit-inline-box;
+	}
+	.inline-select{
+		margin-right: 2em;
+		width:60%;
+	}
+	.inline-submit{
+		margin-left:1.2em;
+		margin-top:1.7em;
+		width:60%;
+	}
+</style>
 <div class="">
-<form class="" action="{{url('incident/status/'.$incident->id)}}" method="post">
+<form class="form-inline" action="{{url('incident/status/'.$incident->id)}}" method="post">
 	<input type="hidden" name="_token" value="{{csrf_token()}}">
-	<div class="">
+	<div class="inline-select">
+		<label for="status_id">Status</label>
 		<select  name="status_id">
 			@foreach($statuses as $status)
 			<option value="{{$status->id}}"
@@ -28,7 +43,9 @@
 				<?php echo $errors->first('status_id', '* :message'); ?>
 		 </span>
 	</div>
-	<input type="submit" value="save">
+	<div class="inline-submit">
+		<input type="submit" value="save">
+	</div>
 </form>
 </div>
 <?php
